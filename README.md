@@ -26,9 +26,9 @@
 * Can be automated to run on a schedule using GitHub Actions.
 * Securely handles API keys and other sensitive information using environment variables.
 
-### Example Report
+### Example
 
-Screenshots of the email report you will receive:
+Screenshots of the inbox report schedule using XRP-EUR as an example:
 
 *Inbox Level-1:*
 
