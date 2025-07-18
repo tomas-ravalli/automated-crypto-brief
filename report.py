@@ -29,16 +29,16 @@ def get_xrp_price():
         return None
 
 def send_email(price):
-    """Sends an email with the XRP price and performance."""
+    """Sends an email with the XRP price and return."""
     if price is None:
         print("Skipping email due to price fetch error.")
         return
 
     # --- Calculations ---
     # Now this calculation will work correctly
-    performance_pct = ((price - PURCHASE_PRICE) / PURCHASE_PRICE) * 100
+    return_pct = ((price - PURCHASE_PRICE) / PURCHASE_PRICE) * 100
     profit_per_unit = price - PURCHASE_PRICE
-    performance_multiplier = price / PURCHASE_PRICE
+    return_multiplier = price / PURCHASE_PRICE
     
     # --- Date Formatting ---
     today_str = date.today().strftime("%d/%m/%Y")
@@ -52,9 +52,9 @@ def send_email(price):
     
     # All numbers rounded to two decimal places
     body = f"""
-Performance: {performance_pct:+.2f}%
-Performance Multiplier: x{performance_multiplier:.2f}
-Profit/Loss per XRP: €{profit_per_unit:,.2f}
+Return: {return_pct:+.2f}%
+Return Multiplier: x{return_multiplier:.2f}
+Profit/Loss per Unit: €{profit_per_unit:,.2f}
 
 Current Price: €{price:,.2f}
 Purchase Price: €{PURCHASE_PRICE:,.2f}

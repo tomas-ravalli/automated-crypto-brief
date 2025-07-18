@@ -5,7 +5,7 @@
   <img src="https://img.shields.io/badge/Language-Python-blue" alt="Language">
 </p>
 
-> This project is a Python script that automatically fetches the price of a specified cryptocurrency from Coinbase, calculates its performance against a predefined purchase price, and sends a daily report via email. The project is designed to be easily configurable and can be automated to run daily using GitHub Actions.
+> This project is a Python script that automatically fetches the price of a specified cryptocurrency from Coinbase, calculates its return against a predefined purchase price, and sends a daily report via email. The project is designed to be easily configurable and can be automated to run daily using GitHub Actions.
 
 ### Outline
 
@@ -20,8 +20,8 @@
 ## Features
 
 * Fetches the latest cryptocurrency prices from Coinbase.
-* Calculates the performance and profit/loss of your investment.
-* Calculates a performance multiplier (e.g., x1.5 or x0.8) for a quick view of your investment's status.
+* Calculates the return and profit/loss of your investment.
+* Calculates a return multiplier (e.g., x1.5 or x0.8) for a quick view of your investment's status.
 * Sends a formatted email report with the current date in the subject.
 * Can be automated to run on a schedule using GitHub Actions.
 * Securely handles API keys and other sensitive information using environment variables.
