@@ -102,4 +102,6 @@ You can customize the script to track a different or multiple cryptocurrencies.
     ```python
     CURRENCY_PAIR = 'YOUR-CRYPTO-PAIR'
 
+</br>
+
 <p align="center">© 🌐 2025 t.r.</p>
