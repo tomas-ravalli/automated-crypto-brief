@@ -14,7 +14,8 @@ COINBASE_API_SECRET = os.getenv("COINBASE_API_SECRET")
 SENDER_EMAIL = os.getenv("GMAIL_ADDRESS")
 SENDER_PASSWORD = os.getenv("GMAIL_APP_PASSWORD")
 RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")
-PURCHASE_PRICE = os.getenv("PURCHASE_PRICE")
+# Convert PURCHASE_PRICE to a float
+PURCHASE_PRICE = float(os.getenv("PURCHASE_PRICE"))
 CURRENCY_PAIR = 'XRP-EUR'
 
 def get_xrp_price():
@@ -34,6 +35,7 @@ def send_email(price):
         return
 
     # --- Calculations ---
+    # Now this calculation will work correctly
     performance_pct = ((price - PURCHASE_PRICE) / PURCHASE_PRICE) * 100
     profit_per_unit = price - PURCHASE_PRICE
     performance_multiplier = price / PURCHASE_PRICE
