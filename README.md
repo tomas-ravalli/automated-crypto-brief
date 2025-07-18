@@ -31,11 +31,11 @@
 Here is a screenshot of the email report you will receive:
 
 <p align="left">
-  <img src="./assets/cb-l1.png" alt="Report Screenshot L1" width="500">
+  <img src="./assets/cb-l1.png" alt="Report Screenshot L1" width="200">
 </p>
 
 <p align="left">
-  <img src="./assets/cb-l2.png" alt="Report Screenshot L2" width="500">
+  <img src="./assets/cb-l2.png" alt="Report Screenshot L2" width="200">
 </p>
 
 ## Prerequisites
