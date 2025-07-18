@@ -28,15 +28,15 @@
 
 ### Example Report
 
-Screenshots of the email report you will receive.
+Screenshots of the email report you will receive:
 
-#### Inbox Level-1:
+*Inbox Level-1:*
 
 <p align="left">
   <img src="./assets/cb-l1.png" alt="Report Screenshot L1" width="400">
 </p>
 
-#### Inbox Level-2:
+*Inbox Level-2:*
 
 <p align="left">
   <img src="./assets/cb-l2.png" alt="Report Screenshot L2" width="400">
