@@ -79,11 +79,11 @@ To use this script, you need to configure your environment variables.
 
 This repository includes a GitHub Actions workflow to automate the daily execution of the report. To use it, you need to set up secrets in your forked GitHub repository.
 
-1.  **Fork this repository.**
+1. **Fork this repository.**
 
-2.  **Go to your repository's settings** > **Secrets and variables** > **Actions**.
+2. **Go to your repository's settings** > **Secrets and variables** > **Actions**.
 
-3.  **Create the following secrets** with your credentials/data:
+3. **Create the following secrets** with your credentials/data:
     * `COINBASE_API_KEY`
     * `COINBASE_API_SECRET`
     * `GMAIL_ADDRESS`
@@ -97,8 +97,8 @@ The workflow is configured to run at 08:00AM CET daily. You can also trigger it 
 
 You can customize the script to track a different or multiple cryptocurrencies.
 
-1.  **Open the `report.py` file.**
-2.  **Change the `CURRENCY_PAIR`** to the desired currency pair (e.g., 'BTC-USD').
+1. **Open the `report.py` file.**
+2. **Change the `CURRENCY_PAIR`** to the desired currency pair (e.g., 'BTC-USD').
     ```python
     CURRENCY_PAIR = 'YOUR-CRYPTO-PAIR'
 
