@@ -1,4 +1,4 @@
-# 📥 CNB_Simple-Crypto-Reporter
+# 📥 CNB_Daily-Crypto-Report
 
 <p align="left">
   <img src="https://img.shields.io/badge/License-MIT-blue" alt="License">
