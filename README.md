@@ -26,6 +26,18 @@
 * Can be automated to run on a schedule using GitHub Actions.
 * Securely handles API keys and other sensitive information using environment variables.
 
+### Example Report
+
+Here is a screenshot of the email report you will receive:
+
+<p align="left">
+  <img src="./assets/cb-l1.png" alt="Report Screenshot L1" width="500">
+</p>
+
+<p align="left">
+  <img src="./assets/cb-l2.png" alt="Report Screenshot L2" width="500">
+</p>
+
 ## Prerequisites
 
 Before you begin, ensure you have the following:
@@ -75,9 +87,9 @@ To use this script, you need to configure your environment variables.
     python report.py
     ```
 
-## Automation with GitHub Actions
+## Automation
 
-This repository includes a GitHub Actions workflow to automate the daily execution of the report. To use it, you need to set up secrets in your forked GitHub repository.
+This repository includes a **GitHub Actions** workflow to automate the daily execution of the report. To use it, you need to set up secrets in your forked GitHub repository.
 
 1. **Fork this repository.**
 
