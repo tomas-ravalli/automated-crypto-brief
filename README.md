@@ -91,7 +91,7 @@ This repository includes a GitHub Actions workflow to automate the daily executi
     * `RECIPIENT_EMAIL`
     * `PURCHASE_PRICE`
 
-The workflow is configured to run at 08:00AM CET daily. You can also trigger it manually from the Actions tab in your repository.
+The workflow is configured to run at 08:00AM CEST daily. You can also trigger it manually from the Actions tab in your repository.
 
 ## Customization
 
