@@ -107,16 +107,16 @@ This repository includes a **GitHub Actions** workflow to automate the daily exe
     * `RECIPIENT_EMAIL`
     * `PURCHASE_PRICE`
 
-The workflow is configured to run at 08:00AM CEST daily. You can also trigger it manually from the Actions tab in your repository.
+The workflow is configured to run at ~08:00AM CEST daily. You can also trigger it manually from the Actions tab in your repository.
 
 ## Customization
 
 You can customize the script to track a different or multiple cryptocurrencies.
 
 1. **Open the `report.py` file.**
-2. **Change the `CURRENCY_PAIR`** to the desired currency pair (e.g., 'BTC-USD').
+2. **Change the `CURRENCY_PAIR`** to the desired currency pair (e.g., 'BTC-USD', 'ETH-EUR').
     ```python
-    CURRENCY_PAIR = 'YOUR-CRYPTO-PAIR'
+    CURRENCY_PAIRS = ['YOUR-CRYPTO-PAIR-1', 'YOUR-CRYPTO-PAIR-2']
 
 </br>
 
