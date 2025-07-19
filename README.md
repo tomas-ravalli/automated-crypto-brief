@@ -116,7 +116,7 @@ You can customize the script to track a different or multiple cryptocurrencies.
 1. **Open the `report.py` file.**
 2. **Change the `CURRENCY_PAIR`** to the desired currency pair (e.g., 'BTC-USD', 'ETH-EUR').
     ```python
-    CURRENCY_PAIRS = ['YOUR-CRYPTO-PAIR-1', 'YOUR-CRYPTO-PAIR-2']
+    CURRENCY_PAIR = 'YOUR-CRYPTO-PAIR-1'
 
 </br>
 
