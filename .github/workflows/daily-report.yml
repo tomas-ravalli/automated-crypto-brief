@@ -2,8 +2,8 @@ name: Daily XRP-EUR Report
 
 on:
   schedule:
-    # Runs at 06:00 UTC daily (08:00 AM CEST)
-    - cron: '0 6 * * *'
+    # Runs at 05:00 UTC daily (07:00 AM CEST)
+    - cron: '0 5 * * *'
   workflow_dispatch:
 
 jobs:
