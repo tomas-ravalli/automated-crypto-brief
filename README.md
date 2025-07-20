@@ -120,4 +120,4 @@ You can customize the script to track a different or multiple cryptocurrencies.
 
 </br>
 
-<p align="center">© 🌐 2025 t.r.</p>
+<p align="center">🌐 © 2025 t.r.</p>
