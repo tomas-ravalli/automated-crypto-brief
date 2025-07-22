@@ -5,13 +5,14 @@
   <img src="https://img.shields.io/badge/Language-Python-blue" alt="Language">
 </p>
 
-> This project is a Python script that automatically fetches the price of a specified cryptocurrency from Coinbase, calculates its return against a predefined purchase price, and sends a daily report via email. The project is designed to be easily configurable and can be automated to run daily using GitHub Actions.
+> This project is a Python script that automatically fetches the price of a specified cryptocurrency from Coinbase, calculates its return against the average of your purchase prices, and sends a daily report via email. The project is designed to be easily configurable and can be automated to run daily using GitHub Actions.
 
 ### Outline
 
 - [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
+- [Usage](#usage)
 - [Automation](#automation)
 - [Customization](#customization)
 
@@ -19,53 +20,40 @@
 
 ## Features
 
-* Fetches the latest cryptocurrency prices from Coinbase.
-* Calculates the return and profit/loss of your investment.
-* Calculates a return multiplier (e.g., x1.5 or x0.8) for a quick view of your investment's status.
-* Sends a formatted email report with the current date in the subject.
-* Can be automated to run on a schedule using GitHub Actions.
-* Securely handles API keys and other sensitive information using environment variables.
-
-### Example
-
-Screenshots of the inbox report schedule using XRP-EUR as an example:
-
-*Inbox Level-1:*
-
-<p align="left">
-  <img src="./assets/cb-l1.png" alt="Report Screenshot L1" width="400">
-</p>
-
-*Inbox Level-2:*
-
-<p align="left">
-  <img src="./assets/cb-l2.png" alt="Report Screenshot L2" width="400">
-</p>
+- Fetches the latest cryptocurrency prices from Coinbase.
+- Calculates the simple average of your investment's purchase prices.
+- Calculates return, profit/loss per unit, and a return multiplier.
+- Sends a formatted email report.
+- Can be automated to run on a schedule using GitHub Actions.
+- Securely handles API keys and other sensitive information using environment variables.
 
 ## Prerequisites
 
 Before you begin, ensure you have the following:
 
-* Python 3.6 or higher
-* A Coinbase account with API credentials (API Key and API Secret)
-* A Gmail account with an App Password
-* Git (for cloning the repository)
+- Python 3.6 or higher
+- A Coinbase account with API credentials (API Key and API Secret)
+- A Gmail account with an App Password
+- Git (for cloning the repository)
 
 ## Installation
 
-1.  **Clone the repository:**
+1. **Clone the repository:**
+
     ```bash
-    git clone [https://github.com/tomas-ravalli/coinbase-report.git](https://github.com/tomas-ravalli/coinbase-report.git)
-    cd coinbase-report
+    git clone [https://github.com/tomas-ravalli/cnb-daily-crypto-report.git](https://github.com/tomas-ravalli/cnb-daily-crypto-report.git)
+    cd cnb-daily-crypto-report
     ```
 
-2.  **Create a virtual environment:**
+2. **Create a virtual environment:**
+
     ```bash
     python3 -m venv venv
     source venv/bin/activate
     ```
 
-3.  **Install the dependencies:**
+3. **Install the dependencies:**
+
     ```bash
     pip install -r requirements.txt
     ```
@@ -74,19 +62,26 @@ Before you begin, ensure you have the following:
 
 To use this script, you need to configure your environment variables.
 
-1.  **Create a `.env` file** in the root directory of the project.
+1. **Create a `.env` file** in the root directory of the project.
 
-2.  **Add the following environment variables** to the `.env` file with your own credentials/data:
-    ```
+2. **Add the following environment variables** to the `.env` file with your own credentials/data:
+
+    ```bash
     COINBASE_API_KEY="YOUR_COINBASE_API_KEY"
     COINBASE_API_SECRET="YOUR_COINBASE_API_SECRET"
     GMAIL_ADDRESS="YOUR_GMAIL_ADDRESS"
     GMAIL_APP_PASSWORD="YOUR_GMAIL_APP_PASSWORD"
     RECIPIENT_EMAIL="THE_EMAIL_ADDRESS_TO_SEND_THE_REPORT_TO"
-    PURCHASE_PRICE="YOUR_PURCHASE_PRICE"
+    PURCHASE_PRICES="PRICE1;PRICE2;..."
     ```
 
-3.  **Run the script manually:**
+    **Important:** The `PURCHASE_PRICES` variable must be a string with each price separated by a semicolon (`;`).
+
+    *Example:*
+    `PURCHASE_PRICES="0.45;0.51;0.48"`
+
+3. **Run the script manually:**
+
     ```bash
     python report.py
     ```
@@ -100,23 +95,25 @@ This repository includes a **GitHub Actions** workflow to automate the daily exe
 2. **Go to your repository's settings** > **Secrets and variables** > **Actions**.
 
 3. **Create the following secrets** with your credentials/data:
-    * `COINBASE_API_KEY`
-    * `COINBASE_API_SECRET`
-    * `GMAIL_ADDRESS`
-    * `GMAIL_APP_PASSWORD`
-    * `RECIPIENT_EMAIL`
-    * `PURCHASE_PRICE`
+    - `COINBASE_API_KEY`
+    - `COINBASE_API_SECRET`
+    - `GMAIL_ADDRESS`
+    - `GMAIL_APP_PASSWORD`
+    - `RECIPIENT_EMAIL`
+    - `PURCHASE_PRICES`
 
 The workflow is configured to run at ~07:00AM CEST daily. You can also trigger it manually from the Actions tab in your repository.
 
 ## Customization
 
-You can customize the script to track a different or multiple cryptocurrencies.
+You can customize the script to track a different cryptocurrency.
 
 1. **Open the `report.py` file.**
 2. **Change the `CURRENCY_PAIR`** to the desired currency pair (e.g., 'BTC-USD', 'ETH-EUR').
+
     ```python
     CURRENCY_PAIR = 'YOUR-CRYPTO-PAIR'
+    ```
 
 </br>
 
