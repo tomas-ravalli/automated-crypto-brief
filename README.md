@@ -115,6 +115,8 @@ You can customize the script to track a different cryptocurrency.
     CURRENCY_PAIR = 'YOUR-CRYPTO-PAIR'
     ```
 
+</br>
+
 > [!WARNING]
 > The report and metrics included are not exhaustive and are intended for superficial monitoring purposes only.
 
