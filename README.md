@@ -5,7 +5,10 @@
   <img src="https://img.shields.io/badge/Language-Python-blue" alt="Language">
 </p>
 
-> This project is a Python script that automatically fetches the price of a specified cryptocurrency from Coinbase, calculates its return against the average of your purchase prices, and sends a daily report via email. The project is designed to be easily configurable and can be automated to run daily using GitHub Actions.
+> This project is a Python script that automatically fetches the price of a specified cryptocurrency from Coinbase, calculates its return against the average of your purchase prices, and sends a daily basic report via email. The project is designed to be easily configurable and can be automated to run daily using GitHub Actions.
+
+> [!WARNING]
+> The report and metrics included are not exhaustive and are intended for superficial monitoring purposes only.
 
 ### Outline
 
