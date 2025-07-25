@@ -7,9 +7,6 @@
 
 > This project is a Python script that automatically fetches the price of a specified cryptocurrency from Coinbase, calculates its return against the average of your purchase prices, and sends a daily basic report via email. The project is designed to be easily configurable and can be automated to run daily using GitHub Actions.
 
-> [!WARNING]
-> The report and metrics included are not exhaustive and are intended for superficial monitoring purposes only.
-
 ### Outline
 
 - [Features](#features)
@@ -119,5 +116,8 @@ You can customize the script to track a different cryptocurrency.
     ```
 
 </br>
+
+> [!WARNING]
+> The report and metrics included are not exhaustive and are intended for superficial monitoring purposes only.
 
 <p align="center">🌐 © 2025 t.r.</p>
