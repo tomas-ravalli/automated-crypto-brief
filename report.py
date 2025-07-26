@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from email.message import EmailMessage
+from email.mime.image import MIMEImage
 from email.utils import make_msgid
 from coinbase.wallet.client import Client
 from dotenv import load_dotenv
@@ -90,7 +91,7 @@ def update_data_and_create_graph(today_str, return_pct):
     ax.tick_params(axis='y', labelsize=8)
     
     ax.grid(axis='y', linestyle='--', alpha=0.6)
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %y'))
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%b-%y'))
     ax.axhline(0, color='grey', linewidth=0.6)
     
     y_min, y_max = weekly_avg_return.min(), weekly_avg_return.max()
@@ -126,7 +127,7 @@ def send_email(current_price, avg_purchase_price, graph_path):
 Return: {return_pct:+.2f}%
 Return Multiplier: x{return_multiplier:.2f}
 Profit/Loss per Unit: €{profit_per_unit:,.2f}
--
+--
 Current Price: €{current_price:,.2f}
 Avg. Purchase Price: €{avg_purchase_price:,.2f}"""
     body_bottom = f"""
@@ -149,7 +150,14 @@ Avg. Purchase Price: €{avg_purchase_price:,.2f}"""
         
         with open(graph_path, 'rb') as f:
             img_data = f.read()
-        msg.get_payload()[1].add_related(img_data, 'image', 'png', cid=f'<{image_cid}>')
+
+        # Create the image part and set all headers directly
+        img = MIMEImage(img_data)
+        img.add_header('Content-ID', f'<{image_cid}>')
+        img.add_header('Content-Disposition', 'inline', filename='return_graph.png')
+
+        # Attach the fully formed image part to the message
+        msg.attach(img)
     
     try:
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
