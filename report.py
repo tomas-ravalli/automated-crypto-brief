@@ -1,6 +1,11 @@
 import os
 import smtplib
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 from email.message import EmailMessage
+from email.utils import make_msgid
 from coinbase.wallet.client import Client
 from dotenv import load_dotenv
 from datetime import date
@@ -14,15 +19,11 @@ COINBASE_API_SECRET = os.getenv("COINBASE_API_SECRET")
 SENDER_EMAIL = os.getenv("GMAIL_ADDRESS")
 SENDER_PASSWORD = os.getenv("GMAIL_APP_PASSWORD")
 RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")
-CURRENCY_PAIR = 'XRP-EUR' # Replace XRP by your currency
-
-# --- Environment Variable for Purchase Prices ---
-# Your .env file should contain a variable like this, with prices separated by semicolons:
-# PURCHASE_PRICES="2.45;2.51;2.48"
+CURRENCY_PAIR = 'XRP-EUR'
 PURCHASE_PRICES_STR = os.getenv("PURCHASE_PRICES")
 
-def get_xrp_price(): # Replace XRP by your currency
-    """Fetches the current XRP-EUR spot price from Coinbase.""" # Replace XRP by your currency
+def get_xrp_price():
+    """Fetches the current XRP-EUR spot price from Coinbase."""
     try:
         client = Client(COINBASE_API_KEY, COINBASE_API_SECRET)
         price_data = client.get_spot_price(currency_pair=CURRENCY_PAIR)
@@ -32,64 +33,76 @@ def get_xrp_price(): # Replace XRP by your currency
         return None
 
 def calculate_average_purchase_price(prices_str):
-    """
-    Parses the purchase prices string from the .env file
-    and calculates the simple average price.
-    """
+    """Calculates the simple average of purchase prices."""
     if not prices_str:
-        print("Error: PURCHASE_PRICES environment variable is not set.")
         return None
-
     try:
-        # Split the string into a list of price strings
-        price_list = [p for p in prices_str.strip().split(';') if p]
-        
-        if not price_list:
-            print("Error: No prices found in PURCHASE_PRICES variable.")
-            return None
-            
-        # Convert price strings to floats
-        prices = [float(p) for p in price_list]
-        
-        # Calculate the simple average
-        average_price = sum(prices) / len(prices)
-        return average_price
-        
-    except ValueError:
-        print(f"Error: Invalid format in PURCHASE_PRICES. Ensure it's 'price1;price2;...'. Value found: {prices_str}")
-        return None
-    except Exception as e:
-        print(f"An unexpected error occurred while processing prices: {e}")
+        prices = [float(p) for p in prices_str.strip().split(';') if p]
+        return sum(prices) / len(prices) if prices else None
+    except (ValueError, Exception) as e:
+        print(f"Error processing prices: {e}")
         return None
 
-
-def send_email(current_price, avg_purchase_price):
-    """Sends an email with the XRP price and return based on average price.""" # Replace XRP by your currency
-    if current_price is None:
-        print("Skipping email due to price fetch error.")
-        return
+def update_data_and_create_graph(today_str, return_pct):
+    """
+    Updates the historical data CSV and generates the performance graph.
+    Returns the file path of the generated graph.
+    """
+    csv_file = 'historical_data.csv'
+    new_data = pd.DataFrame([{'date': pd.to_datetime(today_str, dayfirst=True), 'return_pct': return_pct}])
     
-    if avg_purchase_price is None:
-        print("Skipping email due to purchase processing error.")
+    df = pd.concat([pd.read_csv(csv_file, parse_dates=['date']), new_data], ignore_index=True) if os.path.exists(csv_file) else new_data
+    df.to_csv(csv_file, index=False)
+    
+    weekly_avg_return = df.set_index('date')['return_pct'].resample('W-SUN').mean().round(2)
+    
+    if len(weekly_avg_return) < 2:
+        print("Not enough data to generate a meaningful graph. Skipping chart generation.")
+        return None
+        
+    plt.style.use('default')
+    fig, ax = plt.subplots(figsize=(15, 7))
+    
+    ax.plot(weekly_avg_return.index, weekly_avg_return, marker='o', linestyle='-', color='grey', markersize=4, label='Weekly Avg. Return')
+    
+    x_vals = mdates.date2num(weekly_avg_return.index)
+    m, b = np.polyfit(x_vals, weekly_avg_return.dropna(), 1)
+    ax.plot(weekly_avg_return.index, m * x_vals + b, '--', color='#ff9999', label='Trend')
+
+    ax.set_title('Weekly Average Return (%) (Mon-Sun)', fontsize=16)
+    ax.set_ylabel('Average Return', fontsize=12)
+    ax.grid(axis='y', linestyle='--', alpha=0.7)
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %Y'))
+    ax.axhline(0, color='grey', linewidth=0.8)
+    
+    y_min, y_max = weekly_avg_return.min(), weekly_avg_return.max()
+    y_buffer = (y_max - y_min) * 0.1
+    ax.set_ylim([y_min - y_buffer, y_max + y_buffer])
+    ax.legend()
+    
+    graph_path = 'weekly_report_graph.png'
+    plt.savefig(graph_path, bbox_inches='tight', pad_inches=0.2)
+    plt.close()
+    
+    return graph_path
+
+def send_email(current_price, avg_purchase_price, graph_path):
+    """Sends an email with the price report and embedded graph."""
+    if current_price is None or avg_purchase_price is None:
         return
 
-    # --- Calculations ---
-    # Calculations are now based on the simple average price
-    return_pct = ((current_price - avg_purchase_price) / avg_purchase_price) * 100 if avg_purchase_price > 0 else 0
+    return_pct = ((current_price - avg_purchase_price) / avg_purchase_price) * 100
     profit_per_unit = current_price - avg_purchase_price
-    return_multiplier = current_price / avg_purchase_price if avg_purchase_price > 0 else 0
-    
-    # --- Date Formatting ---
-    today_str = date.today().strftime("%d/%m/%Y")
+    return_multiplier = current_price / avg_purchase_price
 
-    # --- Email Content ---
+    today_str = date.today().strftime("%d/%m/%Y")
+    
     msg = EmailMessage()
-    msg['Subject'] = f'Daily XRP-EUR Report: {today_str}' # Replace XRP by your currency
+    msg['Subject'] = f'Daily XRP-EUR Report: {today_str}'
     msg['From'] = SENDER_EMAIL
     msg['To'] = RECIPIENT_EMAIL
-    
-    # All numbers rounded for clarity
-    body = f"""
+
+    text_body = f"""
 Return: {return_pct:+.2f}%
 Return Multiplier: x{return_multiplier:.2f}
 Profit/Loss per Unit: €{profit_per_unit:,.2f}
@@ -100,7 +113,23 @@ Avg. Purchase Price: €{avg_purchase_price:,.2f}
 (Report generated by bot)
 🌐 © 2025 t.r.
     """
-    msg.set_content(body)
+    
+    html_body = f"""
+    <html>
+      <body>
+        <pre style="font-family: monospace;">{text_body}</pre>
+        {f'<br><br><img src="cid:{make_msgid()[1:-1]}">' if graph_path else ''}
+      </body>
+    </html>
+    """
+    
+    msg.set_content(text_body)
+    msg.add_alternative(html_body, subtype='html')
+    
+    if graph_path:
+        with open(graph_path, 'rb') as f:
+            img_data = f.read()
+        msg.get_payload()[1].add_related(img_data, 'image', 'png', cid=msg.get_payload()[1].get('Content-ID')[1:-1])
 
     try:
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
@@ -111,10 +140,12 @@ Avg. Purchase Price: €{avg_purchase_price:,.2f}
         print(f"Error sending email: {e}")
 
 if __name__ == "__main__":
-    # 1. Calculate the average purchase price from the history
     avg_price = calculate_average_purchase_price(PURCHASE_PRICES_STR)
-    
-    # 2. If the average price is valid, get the current price and send the report
-    if avg_price is not None:
-        current_price = get_xrp_price() # Replace XRP by your currency
-        send_email(current_price, avg_price)
+    if avg_price:
+        current_price = get_xrp_price()
+        if current_price:
+            return_pct = ((current_price - avg_price) / avg_price) * 100
+            today_str = date.today().strftime("%d/%m/%Y")
+            
+            graph_path = update_data_and_create_graph(today_str, return_pct)
+            send_email(current_price, avg_price, graph_path)
