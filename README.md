@@ -1,4 +1,4 @@
-![My Cover](./assets/cb-cover.png)
+![My Cover](./assets/cb-cover.jpeg)
 
 # 📥 CNB_Daily-Crypto-Report
 
