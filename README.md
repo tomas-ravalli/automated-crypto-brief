@@ -1,3 +1,5 @@
+![My Cover](./assets/cb-cover.png)
+
 # 📥 CNB_Daily-Crypto-Report
 
 <p align="left">
