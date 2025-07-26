@@ -25,6 +25,7 @@
 - Fetches the latest cryptocurrency prices from Coinbase.
 - Calculates the simple average of your investment's purchase prices.
 - Calculates return, profit/loss per unit, and a return multiplier.
+- Generates and embeds a weekly performance chart directly into the email.
 - Sends a formatted email report.
 - Can be automated to run on a schedule using GitHub Actions.
 - Securely handles API keys and other sensitive information using environment variables.
