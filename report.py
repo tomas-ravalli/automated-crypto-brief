@@ -55,7 +55,13 @@ def update_data_and_create_graph(today_str, return_pct):
         'return_pct': round(return_pct, 2)
     }])
     
-    df = pd.concat([pd.read_csv(csv_file, parse_dates=['date']), new_data], ignore_index=True) if os.path.exists(csv_file) else new_data
+    # Read existing data or create a new file
+    if os.path.exists(csv_file):
+        df = pd.read_csv(csv_file, parse_dates=['date'])
+        df = pd.concat([df, new_data], ignore_index=True)
+    else:
+        df = new_data
+    
     df.to_csv(csv_file, index=False)
     
     weekly_avg_return = df.set_index('date')['return_pct'].resample('W-SUN').mean().round(2)
@@ -65,30 +71,37 @@ def update_data_and_create_graph(today_str, return_pct):
         return None
         
     plt.style.use('default')
-    fig, ax = plt.subplots(figsize=(15, 7))
+    # --- CHANGE IS HERE: Final small figsize and tiny fonts ---
+    fig, ax = plt.subplots(figsize=(4, 2)) # Final small size
     
-    ax.plot(weekly_avg_return.index, weekly_avg_return, marker='o', linestyle='-', color='grey', markersize=4, label='Weekly Avg. Return')
+    # Tiny marker size and line width
+    ax.plot(weekly_avg_return.index, weekly_avg_return, marker='o', linestyle='-', color='grey', markersize=2, linewidth=1, label='Weekly Avg. Return')
     
+    # Only plot trend line if there are more than 2 data points
     valid_points = weekly_avg_return.dropna()
-    if len(valid_points) >= 2:
+    if len(valid_points) > 2:
         x_vals = mdates.date2num(valid_points.index)
         m, b = np.polyfit(x_vals, valid_points, 1)
-        ax.plot(weekly_avg_return.index, m * mdates.date2num(weekly_avg_return.index) + b, '--', color='#ff9999', label='Trend')
+        ax.plot(weekly_avg_return.index, m * mdates.date2num(weekly_avg_return.index) + b, '--', color='#ff9999', linewidth=1, label='Trend')
 
-    ax.set_title('Weekly Average Return (%)', fontsize=16)
-    ax.set_ylabel('Average Return', fontsize=12)
-    ax.grid(axis='y', linestyle='--', alpha=0.7)
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %Y'))
-    ax.axhline(0, color='grey', linewidth=0.8)
+    ax.set_title('Weekly Average Return (%)', fontsize=8) 
+    ax.set_ylabel('Avg. Return', fontsize=6) 
+    ax.tick_params(axis='x', labelsize=6) 
+    ax.tick_params(axis='y', labelsize=6) 
+    
+    ax.grid(axis='y', linestyle='--', alpha=0.5)
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %y'))
+    ax.axhline(0, color='grey', linewidth=0.5)
     
     y_min, y_max = weekly_avg_return.min(), weekly_avg_return.max()
     y_range = y_max - y_min if y_max > y_min else 1
     y_buffer = y_range * 0.1
     ax.set_ylim([y_min - y_buffer, y_max + y_buffer])
-    ax.legend()
+    ax.legend(fontsize=6) 
     
     graph_path = 'weekly_report_graph.png'
-    plt.savefig(graph_path, bbox_inches='tight', pad_inches=0.2)
+    # Higher DPI is crucial for small charts to be readable
+    plt.savefig(graph_path, bbox_inches='tight', pad_inches=0.1, dpi=300)
     plt.close()
     
     return graph_path
@@ -125,13 +138,16 @@ Avg. Purchase Price: €{avg_purchase_price:,.2f}"""
 
     if graph_path:
         image_cid = make_msgid(domain='t-ravalli-report')[1:-1]
+        
+        # --- CHANGE IS HERE: Added width="400" to the <img> tag ---
         html_body = f"""
         <html><body>
             <pre style="font-family: monospace;">{body_top}</pre><br>
-            <img src="cid:{image_cid}"><br>
+            <img src="cid:{image_cid}" width="400"><br>
             <pre style="font-family: monospace;">{body_bottom}</pre>
         </body></html>"""
         msg.add_alternative(html_body, subtype='html')
+        
         with open(graph_path, 'rb') as f:
             img_data = f.read()
         msg.get_payload()[1].add_related(img_data, 'image', 'png', cid=f'<{image_cid}>')
