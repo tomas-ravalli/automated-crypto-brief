@@ -142,7 +142,7 @@ Avg. Purchase Price: €{avg_purchase_price:,.2f}"""
         html_body = f"""
         <html><body>
             <pre style="font-family: monospace;">{body_top}</pre><br>
-            <img src="cid:{image_cid}" width="400"><br>
+            <img src="cid:{image_cid}" width="400" style="display:block; max-width:400px; width:100%; height:auto;"><br>
             <pre style="font-family: sans-serif;">{body_bottom}</pre>
         </body></html>"""
         msg.add_alternative(html_body, subtype='html')
