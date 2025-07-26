@@ -3,11 +3,11 @@
 # 📥 CNB_Daily-Crypto-Report
 
 <p align="left">
-  <img src="https://img.shields.io/badge/License-MIT-blue" alt="License">
-  <img src="https://img.shields.io/badge/Language-Python-blue" alt="Language">
+  <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License">
+  <img src="https://img.shields.io/badge/Language-Python-lightgrey" alt="Language">
 </p>
 
-> This project is a Python script that automatically fetches the price of a specified cryptocurrency from Coinbase, calculates its return against the average of your purchase prices, and sends a daily basic report via email. It's designed to be easily configurable and can be automated to run daily using GitHub Actions.
+> A Python script that automatically fetches the price of a specified cryptocurrency from Coinbase, calculates its return against the average of your purchase prices, and sends a daily basic report via email. It's designed to be easily configurable and can be automated to run daily using GitHub Actions.
 
 ### Outline
 
