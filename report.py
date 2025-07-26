@@ -49,10 +49,25 @@ def update_data_and_create_graph(today_str, return_pct):
     Returns the file path of the generated graph.
     """
     csv_file = 'historical_data.csv'
-    new_data = pd.DataFrame([{'date': pd.to_datetime(today_str, dayfirst=True), 'return_pct': return_pct}])
     
-    df = pd.concat([pd.read_csv(csv_file, parse_dates=['date']), new_data], ignore_index=True) if os.path.exists(csv_file) else new_data
+    # Create a new data entry with the return percentage rounded to two decimals
+    new_data = pd.DataFrame([{
+        'date': pd.to_datetime(today_str, dayfirst=True),
+        'return_pct': round(return_pct, 2)  # <-- The change is here
+    }])
+    
+    # Read existing data or create a new file
+    if os.path.exists(csv_file):
+        df = pd.read_csv(csv_file, parse_dates=['date'])
+        df = pd.concat([df, new_data], ignore_index=True)
+    else:
+        df = new_data
+    
+    # Save updated data
     df.to_csv(csv_file, index=False)
+    
+    # --- Generate Graph ---
+    # (The rest of the function remains the same)
     
     weekly_avg_return = df.set_index('date')['return_pct'].resample('W-SUN').mean().round(2)
     
@@ -66,17 +81,19 @@ def update_data_and_create_graph(today_str, return_pct):
     ax.plot(weekly_avg_return.index, weekly_avg_return, marker='o', linestyle='-', color='grey', markersize=4, label='Weekly Avg. Return')
     
     x_vals = mdates.date2num(weekly_avg_return.index)
-    m, b = np.polyfit(x_vals, weekly_avg_return.dropna(), 1)
+    # Ensure no NaNs are passed to polyfit
+    valid_points = weekly_avg_return.dropna()
+    m, b = np.polyfit(mdates.date2num(valid_points.index), valid_points, 1)
     ax.plot(weekly_avg_return.index, m * x_vals + b, '--', color='#ff9999', label='Trend')
 
-    ax.set_title('Weekly Average Return (%)', fontsize=16)
+    ax.set_title('Weekly Average Return (%) (Mon-Sun)', fontsize=16)
     ax.set_ylabel('Average Return', fontsize=12)
     ax.grid(axis='y', linestyle='--', alpha=0.7)
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %Y'))
     ax.axhline(0, color='grey', linewidth=0.8)
     
     y_min, y_max = weekly_avg_return.min(), weekly_avg_return.max()
-    y_buffer = (y_max - y_min) * 0.1
+    y_buffer = (y_max - y_min) * 0.1 if (y_max - y_min) > 0 else 1
     ax.set_ylim([y_min - y_buffer, y_max + y_buffer])
     ax.legend()
     
