@@ -34,18 +34,18 @@
 
 Screenshots of the inbox report schedule using XRP-EUR as an example:
 
-<p align="center">
-  <img src="./assets/gh-fw.png" alt="Example-1" width="675">
+<p align="left">
+  <img src="./assets/cb-l1.jpeg" alt="Example-1" width="400">
     <br>
-  <em>Fig. 1: Screenshot of example report at inbox level-1.</em>
+  <em>Fig. 1: Example report at inbox level-1.</em>
 </p>
 
 </br>
 
-<p align="center">
-  <img src="./assets/gh-fw.png" alt="Example-2" width="675">
+<p align="left">
+  <img src="./assets/cb-l2.jpeg" alt="Example-2" width="400">
     <br>
-  <em>Fig. 2: Screenshot of example report at inbox level-2.</em>
+  <em>Fig. 2: Example report at inbox level-2.</em>
 </p>
 
 
