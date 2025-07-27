@@ -1,6 +1,6 @@
 ![My Cover](./assets/cb-cover.jpeg)
 
-# 📥 Automated Daily Crypto Reporter
+# 📥 Daily Crypto Reporter
 
 <p align="left">
   <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License">
