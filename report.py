@@ -72,7 +72,7 @@ def update_data_and_create_graph(today_str, return_pct):
         return None
         
     plt.style.use('default')
-    plt.rcParams['font.family'] = 'monospace'
+    plt.rcParams['font.family'] = 'sans-serif'
     
     fig, ax = plt.subplots(figsize=(4.24, 2.25))
     
@@ -91,7 +91,7 @@ def update_data_and_create_graph(today_str, return_pct):
     ax.tick_params(axis='y', labelsize=8)
     
     ax.grid(axis='y', linestyle='--', alpha=0.6)
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%b-%y'))
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%b'))
     ax.axhline(0, color='grey', linewidth=0.6)
     
     y_min, y_max = weekly_avg_return.min(), weekly_avg_return.max()
@@ -141,7 +141,7 @@ Avg. Purchase Price: €{avg_purchase_price:,.2f}"""
         
         html_body = f"""
         <html><body>
-            <pre style="font-family: monospace;">{body_top}</pre><br>
+            <pre style="font-family: sans-serif;">{body_top}</pre><br>
             <img src="cid:{image_cid}" width="400" style="display:block; max-width:400px; width:100%; height:auto;"><br>
             <pre style="font-family: sans-serif;">{body_bottom}</pre>
         </body></html>"""
