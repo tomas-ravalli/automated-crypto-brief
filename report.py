@@ -99,11 +99,12 @@ def update_data_and_create_graph(today_str, return_pct):
     y_buffer = y_range * 0.1
     ax.set_ylim([y_min - y_buffer, y_max + y_buffer])
 
+    # Set X-axis limits to the actual data range to prevent showing empty months.
     if not valid_points.empty:
-    x_min_date = valid_points.index.min()
-    x_max_date = valid_points.index.max()
-    # Add a small padding to the limits
-    ax.set_xlim(x_min_date - pd.Timedelta(days=3), x_max_date + pd.Timedelta(days=3))
+        x_min_date = valid_points.index.min()
+        x_max_date = valid_points.index.max()
+        # Add a small padding to the limits
+        ax.set_xlim(x_min_date - pd.Timedelta(days=3), x_max_date + pd.Timedelta(days=3))
     
     ax.legend(fontsize=8)
     
