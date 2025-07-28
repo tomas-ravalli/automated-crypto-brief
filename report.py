@@ -98,6 +98,13 @@ def update_data_and_create_graph(today_str, return_pct):
     y_range = y_max - y_min if y_max > y_min else 1
     y_buffer = y_range * 0.1
     ax.set_ylim([y_min - y_buffer, y_max + y_buffer])
+
+    if not valid_points.empty:
+    x_min_date = valid_points.index.min()
+    x_max_date = valid_points.index.max()
+    # Add a small padding to the limits
+    ax.set_xlim(x_min_date - pd.Timedelta(days=3), x_max_date + pd.Timedelta(days=3))
+    
     ax.legend(fontsize=8)
     
     graph_path = 'weekly_report_graph.png'
