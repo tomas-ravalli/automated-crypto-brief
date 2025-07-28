@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License">
 </p>
 
-> A Python script that automatically fetches the price of a specified cryptocurrency from Coinbase, calculates its return against the average of your purchase prices, and sends a daily basic report via email. Designed to be easily configurable and can be automated to run daily using GitHub Actions.
+> A Python script that automatically fetches the price of a specified crypto from Coinbase, calculates its return against the average of your purchase prices, and sends a daily basic report via email. Designed to be easily configurable and can be automated to run daily using GitHub Actions.
 
 ### Outline
 
