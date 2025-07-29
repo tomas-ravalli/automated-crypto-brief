@@ -73,7 +73,7 @@ def update_data_and_create_graph(today_str, return_pct):
         return None
         
     plt.style.use('default')
-    plt.rcParams['font.family'] = 'sans-serif'
+    plt.rcParams['font.family'] = 'monospace'
     
     fig, ax = plt.subplots(figsize=(4.24, 2.25))
     
@@ -92,17 +92,11 @@ def update_data_and_create_graph(today_str, return_pct):
     
     ax.grid(axis='y', linestyle='--', alpha=0.6)
     
-    # Set major ticks to appear at the beginning of each month.
-    ax.xaxis.set_major_locator(mdates.MonthLocator())
-    # Format the major tick labels to show the abbreviated month.
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%b'))
-    
-    # Add minor ticks for each week, but without labels, to serve as grid lines.
-    ax.xaxis.set_minor_locator(mdates.WeekdayLocator(byweekday=mdates.SU))
-    
-    # Rotate the major tick labels for better readability and hide minor ones
-    ax.tick_params(axis='x', which='major', labelsize=8, rotation=0) # No rotation needed now
-    ax.tick_params(axis='x', which='minor', labelsize=0)
+    # Set major ticks to appear each week (on Sunday)
+    ax.xaxis.set_major_locator(mdates.WeekdayLocator(byweekday=mdates.SU))
+    # Format the date on the x-axis to be more specific (e.g., "29-Jul")
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%d-%b'))
+    ax.tick_params(axis='x', labelsize=8, rotation=45) # Rotate labels for better fit
     
     ax.axhline(0, color='grey', linewidth=0.6)
     
