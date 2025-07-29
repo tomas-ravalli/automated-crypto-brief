@@ -65,6 +65,7 @@ def update_data_and_create_graph(today_str, return_pct):
     
     df.to_csv(csv_file, index=False)
     
+    # Resample to get the average return per week, ending on Sunday.
     weekly_avg_return = df.set_index('date')['return_pct'].resample('W-SUN').mean().round(2)
     
     if len(weekly_avg_return) < 2:
@@ -87,11 +88,22 @@ def update_data_and_create_graph(today_str, return_pct):
 
     ax.set_title('Weekly Average Return (%)', fontsize=9)
     ax.set_ylabel('Avg. Return', fontsize=8)
-    ax.tick_params(axis='x', labelsize=8)
     ax.tick_params(axis='y', labelsize=8)
     
     ax.grid(axis='y', linestyle='--', alpha=0.6)
+    
+    # Set major ticks to appear at the beginning of each month.
+    ax.xaxis.set_major_locator(mdates.MonthLocator())
+    # Format the major tick labels to show the abbreviated month.
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%b'))
+    
+    # Add minor ticks for each week, but without labels, to serve as grid lines.
+    ax.xaxis.set_minor_locator(mdates.WeekdayLocator(byweekday=mdates.SU))
+    
+    # Rotate the major tick labels for better readability and hide minor ones
+    ax.tick_params(axis='x', which='major', labelsize=8, rotation=0) # No rotation needed now
+    ax.tick_params(axis='x', which='minor', labelsize=0)
+    
     ax.axhline(0, color='grey', linewidth=0.6)
     
     y_min, y_max = weekly_avg_return.min(), weekly_avg_return.max()
@@ -99,7 +111,7 @@ def update_data_and_create_graph(today_str, return_pct):
     y_buffer = y_range * 0.1
     ax.set_ylim([y_min - y_buffer, y_max + y_buffer])
 
-    # Set X-axis limits to the actual data range to prevent showing empty months.
+    # Set X-axis limits to the actual data range to prevent showing empty space.
     if not valid_points.empty:
         x_min_date = valid_points.index.min()
         x_max_date = valid_points.index.max()
