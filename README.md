@@ -69,7 +69,7 @@ Before you begin, ensure you have the following:
 1. **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/tomas-ravalli/cnb-daily-crypto-report.git](https://github.com/tomas-ravalli/cnb-daily-crypto-report.git)
+    git clone [https://github.com/tomas-ravalli/automated-crypto-brief.git](https://github.com/tomas-ravalli/automated-crypto-brief.git)
     cd cnb-daily-crypto-report
     ```
 
