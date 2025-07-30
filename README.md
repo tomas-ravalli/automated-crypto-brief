@@ -50,7 +50,7 @@ Screenshots of the inbox report schedule using XRP-EUR as an example:
 ## Architecture
 
 <p align="center">
-  <img src="./assets/cb-scd.png" alt="System context diagram" width="950">
+  <img src="./assets/cb-scd.png" alt="System context diagram" width="1000">
     <br>
   <em>Fig. 1: [System Context Diagram] Automated Crypto Brief.</em>
 </p>
