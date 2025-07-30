@@ -11,6 +11,7 @@
 ### Outline
 
 - [Features](#features)
+- [Architecture](#architecture)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -46,6 +47,13 @@ Screenshots of the inbox report schedule using XRP-EUR as an example:
   <em>Fig. 2: Example report at inbox level-2.</em>
 </p>
 
+## Architecture
+
+<p align="center">
+  <img src="./assets/cb-scd.png" alt="System context diagram" width="950">
+    <br>
+  <em>Fig. 1: [System Context Diagram] Automated Crypto Brief.</em>
+</p>
 
 ## Prerequisites
 
