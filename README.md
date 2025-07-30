@@ -69,8 +69,8 @@ Before you begin, ensure you have the following:
 1. **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/tomas-ravalli/automated-crypto-brief.git](https://github.com/tomas-ravalli/automated-crypto-brief.git)
-    cd cnb-daily-crypto-report
+    git clone https://github.com/tomas-ravalli/automated-crypto-brief.git
+    cd automated-crypto-brief
     ```
 
 2. **Create a virtual environment:**
