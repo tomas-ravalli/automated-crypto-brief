@@ -151,20 +151,15 @@ automated-crypto-brief/
 ├── .github/                      
 │   └── workflows/
 │       └── daily-report.yml      # GitHub Actions file to automate running the script.
-│
 ├── .gitignore                    
 ├── LICENSE                       
 ├── README.md                     # The main documentation for the repository. <--YOU ARE HERE
 ├── requirements.txt              # A list of the Python packages needed to run the project.
-│
 ├── assets/                       
-│
 ├── data/                         
 │   └── historical_data.csv       # The raw data your script will read and process.
-│
 ├── reports/                      
 │   └── weekly_report_chart.png   # The chart created by the automation.
-│
 └── src/                          
     └── report.py                 # The main Python script that performs the analysis and generates the report.
 ```
