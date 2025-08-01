@@ -134,7 +134,7 @@ The workflow is configured to run at ~07:00AM CEST daily. You can also trigger i
 
 ## Customization
 
-You can customize the script to track a different cryptocurrency.
+You can customize the script to track a different crypto.
 
 1. **Open the `report.py` file.**
 2. **Change the `CURRENCY_PAIR`** to the desired currency pair (e.g., 'BTC-USD', 'ETH-EUR').
