@@ -147,7 +147,6 @@ You can customize the script to track a different crypto.
 
 ```
 automated-crypto-brief/
-│
 ├── .github/                      
 │   └── workflows/
 │       └── daily-report.yml      # GitHub Actions file to automate running the script.
