@@ -12,11 +12,11 @@
 
 - [Features](#features)
 - [Architecture](#architecture)
-- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Automation](#automation)
 - [Customization](#customization)
+- [Structure](#structure)
 
 ---
 
@@ -28,6 +28,15 @@
 - Sends a formatted email report –generates and embeds a weekly performance chart directly into the email.
 - Can be automated to run on a schedule using GitHub Actions.
 - Securely handles API keys and other sensitive information using environment variables.
+
+### Prerequisites
+
+Before you begin, ensure you have the following:
+
+- Python 3.6 or higher
+- A Coinbase account with API credentials (API Key and API Secret)
+- A Gmail account with an App Password
+- Git (for cloning the repository)
 
 ### Example
 
@@ -55,14 +64,6 @@ Screenshots of the inbox report schedule using XRP-EUR as an example:
   <em>Fig. 1: [System Context Diagram] Automated Crypto Brief.</em>
 </p>
 
-## Prerequisites
-
-Before you begin, ensure you have the following:
-
-- Python 3.6 or higher
-- A Coinbase account with API credentials (API Key and API Secret)
-- A Gmail account with an App Password
-- Git (for cloning the repository)
 
 ## Installation
 
