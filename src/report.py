@@ -44,10 +44,10 @@ def calculate_average_purchase_price(prices_str):
         print(f"Error processing prices: {e}")
         return None
 
-def update_data_and_create_graph(today_str, return_pct):
+def update_data_and_create_chart(today_str, return_pct):
     """
-    Updates the historical data CSV and generates the performance graph.
-    Returns the file path of the generated graph.
+    Updates the historical data CSV and generates the performance chart.
+    Returns the file path of the generated chart.
     """
     csv_file = 'historical_data.csv'
     
@@ -69,7 +69,7 @@ def update_data_and_create_graph(today_str, return_pct):
     weekly_avg_return = df.set_index('date')['return_pct'].resample('W-SUN').mean().round(2)
     
     if len(weekly_avg_return) < 2:
-        print("Not enough data to generate a meaningful graph. Skipping chart generation.")
+        print("Not enough data to generate a meaningful chart. Skipping chart generation.")
         return None
         
     plt.style.use('default')
@@ -114,14 +114,14 @@ def update_data_and_create_graph(today_str, return_pct):
     
     ax.legend(fontsize=8)
     
-    graph_path = 'weekly_report_graph.png'
-    plt.savefig(graph_path, bbox_inches='tight', pad_inches=0.1, dpi=200)
+    chart_path = 'weekly_report_chart.png'
+    plt.savefig(chart_path, bbox_inches='tight', pad_inches=0.1, dpi=200)
     plt.close()
     
-    return graph_path
+    return chart_path
 
-def send_email(current_price, avg_purchase_price, graph_path):
-    """Sends an email with the price report and embedded graph."""
+def send_email(current_price, avg_purchase_price, chart_path):
+    """Sends an email with the price report and embedded chart."""
     if current_price is None or avg_purchase_price is None:
         return
 
@@ -150,7 +150,7 @@ Avg. Purchase Price: €{avg_purchase_price:,.2f}"""
     """
     msg.set_content(f"{body_top}\n{body_bottom}")
 
-    if graph_path:
+    if chart_path:
         image_cid = make_msgid(domain='t-ravalli-report')[1:-1]
         
         html_body = f"""
@@ -161,13 +161,13 @@ Avg. Purchase Price: €{avg_purchase_price:,.2f}"""
         </body></html>"""
         msg.add_alternative(html_body, subtype='html')
         
-        with open(graph_path, 'rb') as f:
+        with open(chart_path, 'rb') as f:
             img_data = f.read()
 
         # Create the image part and set all headers directly
         img = MIMEImage(img_data)
         img.add_header('Content-ID', f'<{image_cid}>')
-        img.add_header('Content-Disposition', 'inline', filename='return_graph.png')
+        img.add_header('Content-Disposition', 'inline', filename='return_chart.png')
 
         # Attach the fully formed image part to the message
         msg.attach(img)
@@ -190,5 +190,5 @@ if __name__ == "__main__":
             return_pct = ((current_price - avg_price) / avg_price) * 100 if avg_price != 0 else 0
             today_str = date.today().strftime("%d/%m/%Y")
             
-            graph_path = update_data_and_create_graph(today_str, return_pct)
-            send_email(current_price, avg_price, graph_path)
+            chart_path = update_data_and_create_chart(today_str, return_pct)
+            send_email(current_price, avg_price, chart_path)
