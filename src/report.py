@@ -49,7 +49,7 @@ def update_data_and_create_chart(today_str, return_pct):
     Updates the historical data CSV and generates the performance chart.
     Returns the file path of the generated chart.
     """
-    csv_file = 'historical_data.csv'
+    csv_file = 'data/historical_data.csv'
     
     new_data = pd.DataFrame([{
         'date': pd.to_datetime(today_str, dayfirst=True),
@@ -114,7 +114,7 @@ def update_data_and_create_chart(today_str, return_pct):
     
     ax.legend(fontsize=8)
     
-    chart_path = 'weekly_report_chart.png'
+    chart_path = 'reports/weekly_report_chart.png'
     plt.savefig(chart_path, bbox_inches='tight', pad_inches=0.1, dpi=200)
     plt.close()
     
