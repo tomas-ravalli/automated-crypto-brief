@@ -34,12 +34,12 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
           PURCHASE_PRICES: ${{ secrets.PURCHASE_PRICES }}
-        run: python report.py
+        run: python src/report.py
 
       - name: Commit and push updated data
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add historical_data.csv weekly_report_chart.png
+          git add data/historical_data.csv report/weekly_report_chart.png
           # Commit only if there are changes
           git diff --quiet && git diff --staged --quiet || (git commit -m "feat: update daily report and chart" && git push)
