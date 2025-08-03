@@ -40,12 +40,10 @@ Before you begin, ensure you have the following:
 
 ### Example
 
-Using XRP-EUR as the configed crypto:
-
 <p align="left">
   <img src="./assets/cb.gif" alt="Example" width="400">
     <br>
-  <em>Fig. 1: Example XRP daily brief in inbox.</em>
+  <em>Fig. 1: An example of the daily XRP brief in an inbox.</em>
 </p>
 
 
