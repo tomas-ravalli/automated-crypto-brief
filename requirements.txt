@@ -2,3 +2,4 @@ python-dotenv
 coinbase
 pandas
 matplotlib
+google-generativeai
