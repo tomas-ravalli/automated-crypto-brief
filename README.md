@@ -40,21 +40,14 @@ Before you begin, ensure you have the following:
 
 ### Example
 
-Screenshots of the inbox report schedule using XRP-EUR as an example:
+Using XRP-EUR as the configed crypto:
 
 <p align="left">
-  <img src="./assets/cb-l1.jpeg" alt="Example-1" width="400">
+  <img src="./assets/cb.gif" alt="Example" width="400">
     <br>
-  <em>Fig. 1: Example report at inbox level-1.</em>
+  <em>Fig. 1: Example XRP daily brief in inbox.</em>
 </p>
 
-</br>
-
-<p align="left">
-  <img src="./assets/cb-l2.jpeg" alt="Example-2" width="400">
-    <br>
-  <em>Fig. 2: Example report at inbox level-2.</em>
-</p>
 
 ## Architecture
 
