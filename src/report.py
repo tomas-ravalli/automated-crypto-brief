@@ -150,13 +150,14 @@ Profit/Loss per Unit: €{profit_per_unit:,.2f}"""
     body_metrics_price = f"""Current Price: €{current_price:,.2f}
 Avg. Purchase Price: €{avg_purchase_price:,.2f}"""
 
-    # Create HTML-specific versions with all labels bolded
+    # Create HTML-specific versions
     body_metrics_perf_html = f"""<b>Return:</b> {return_pct:+.2f}%
 <b>Return Multiplier:</b> x{return_multiplier:.2f}
 <b>Profit/Loss per Unit:</b> €{profit_per_unit:,.2f}"""
 
-    body_metrics_price_html = f"""<b>Current Price:</b> €{current_price:,.2f}
-<b>Avg. Purchase Price:</b> €{avg_purchase_price:,.2f}"""
+    # Bolding removed from these labels
+    body_metrics_price_html = f"""Current Price: €{current_price:,.2f}
+Avg. Purchase Price: €{avg_purchase_price:,.2f}"""
 
     body_news = f"Latest News:\n{news_summary}"
     
