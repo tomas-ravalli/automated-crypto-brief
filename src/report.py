@@ -10,7 +10,7 @@ from email.utils import make_msgid
 from coinbase.wallet.client import Client
 from dotenv import load_dotenv
 from datetime import date
-import google.generativeai as genai
+from google import genai
 
 # Load environment variables from .env file
 load_dotenv()
