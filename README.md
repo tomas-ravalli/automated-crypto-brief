@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License">
 </p>
 
-> A Python script that automatically fetches the price of a specified crypto from Coinbase, calculates its return against the average of your purchase prices, and sends a daily basic report via email. Designed to be easily configurable and can be scheduled to run daily using GitHub Actions.
+> A Python script that automatically fetches cryptocurrency prices from Coinbase, generates a concise news summary, and sends a comprehensive daily brief via email. Designed to be easily configurable and can be scheduled to run daily using GitHub Actions.
 
 ### Outline
 
@@ -14,29 +14,19 @@
 - [Architecture](#architecture)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Automation](#automation)
-- [Customization](#customization)
 - [Structure](#structure)
 
 ---
 
 ## Features
 
-- Fetches the latest cryptocurrency prices from Coinbase.
+- Fetches the latest crypto prices from Coinbase.
+- Fetches a daily news summary for the specified crypto using the Google Gemini API.
 - Calculates the simple average of your investment's purchase prices.
 - Calculates return, profit/loss per unit, and a return multiplier.
 - Sends a formatted email report –generates and embeds a weekly performance chart directly into the email.
 - Can be automated to run on a schedule using GitHub Actions.
 - Securely handles API keys and other sensitive information using environment variables.
-
-### Prerequisites
-
-Before you begin, ensure you have the following:
-
-- Python 3.6 or higher
-- A Coinbase account with API credentials (API Key and API Secret)
-- A Gmail account with an App Password
-- Git (for cloning the repository)
 
 ### Example
 
@@ -46,6 +36,15 @@ Before you begin, ensure you have the following:
   <em>Fig. 1: An example of the daily XRP brief in an inbox.</em>
 </p>
 
+### Prerequisites
+
+Before you begin, ensure you have the following:
+
+- Python 3.6 or higher
+- A Coinbase account with API credentials (API Key and API Secret)
+- Google AI Studio account with a Gemini API Key
+- A Gmail account with an App Password
+- Git (for cloning the repository)
 
 ## Architecture
 
@@ -57,23 +56,23 @@ Before you begin, ensure you have the following:
 
 ## Installation
 
-1. **Clone the repository:**
+1. **Clone** the repository:
 
-    ```bash
+    ```
     git clone https://github.com/tomas-ravalli/automated-crypto-brief.git
     cd automated-crypto-brief
     ```
 
-2. **Create a virtual environment:**
+2. **Create** a virtual environment:
 
-    ```bash
+    ```
     python3 -m venv venv
     source venv/bin/activate
     ```
 
-3. **Install the dependencies:**
+3. **Install** the dependencies:
 
-    ```bash
+    ```
     pip install -r requirements.txt
     ```
 
@@ -81,41 +80,47 @@ Before you begin, ensure you have the following:
 
 To use this script, you need to configure your environment variables.
 
-1. **Create a `.env` file** in the root directory of the project.
+1. **Create** a `.env` file in the root directory of the project.
 
-2. **Add the following environment variables** to the `.env` file with your own credentials/data:
+2. **Add** the following environment variables to the `.env` file with your own credentials/data:
 
-    ```bash
+    ```
+    # Coinbase Credentials
     COINBASE_API_KEY="YOUR_COINBASE_API_KEY"
     COINBASE_API_SECRET="YOUR_COINBASE_API_SECRET"
+    
+    # Google Gemini Credentials
+    GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
+
+    # Gmail Credentials
     GMAIL_ADDRESS="YOUR_GMAIL_ADDRESS"
     GMAIL_APP_PASSWORD="YOUR_GMAIL_APP_PASSWORD"
     RECIPIENT_EMAIL="THE_EMAIL_ADDRESS_TO_SEND_THE_REPORT_TO"
+
+    # Investment Data
     PURCHASE_PRICES="PRICE1;PRICE2;..."
     ```
 
     **Important:** The `PURCHASE_PRICES` variable must be a string with each price separated by a semicolon (`;`).
 
-    *Example:*
-    `PURCHASE_PRICES="0.45;0.51;0.48"`
+3. **Run** the script manually:
 
-3. **Run the script manually:**
-
-    ```bash
-    python report.py
+    ```
+    python src/report.py
     ```
 
-## Automation
+### Automation
 
 This repository includes a **GitHub Actions** workflow to automate the daily execution of the report. To use it, you need to set up secrets in your forked GitHub repository.
 
-1. **Fork this repository.**
+1. **Fork** this repository.
 
-2. **Go to your repository's settings** > **Secrets and variables** > **Actions**.
+2. **Go** to your repository's settings > Secrets and variables > Actions.
 
-3. **Create the following secrets** with your credentials/data:
+3. **Create** the following secrets with your credentials/data:
     - `COINBASE_API_KEY`
     - `COINBASE_API_SECRET`
+    - `GEMINI_API_KEY`
     - `GMAIL_ADDRESS`
     - `GMAIL_APP_PASSWORD`
     - `RECIPIENT_EMAIL`
@@ -123,12 +128,12 @@ This repository includes a **GitHub Actions** workflow to automate the daily exe
 
 The workflow is configured to run at ~07:00AM CEST daily. You can also trigger it manually from the Actions tab in your repository.
 
-## Customization
+### Customization
 
 You can customize the script to track a different crypto.
 
-1. **Open the `report.py` file.**
-2. **Change the `CURRENCY_PAIR`** to the desired currency pair (e.g., 'BTC-USD', 'ETH-EUR').
+1. **Open** the `src/report.py` file.
+2. **Change** the `CURRENCY_PAIR` to the desired currency pair (e.g., 'BTC-USD', 'ETH-EUR').
 
     ```python
     CURRENCY_PAIR = 'YOUR-CRYPTO-PAIR'
