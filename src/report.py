@@ -10,7 +10,7 @@ from email.utils import make_msgid
 from coinbase.wallet.client import Client
 from dotenv import load_dotenv
 from datetime import date
-from google import genai
+import google.generativeai as genai
 
 # Load environment variables from .env file
 load_dotenv()
@@ -55,12 +55,15 @@ def get_news_summary(api_key, crypto_name):
     try:
         genai.configure(api_key=api_key)
         
-        # Use the direct, one-shot generation method
-        response = genai.generate_content(
-            model="gemini-2.5-pro", # Using a current, powerful model
-            contents=f"In one short paragraph, what is the most relevant news or milestone for {crypto_name} in the last 72 hours? Be concise."
-        )
+        # Load the model first, then generate content
+        model = genai.GenerativeModel('gemini-2.5-pro')
+        
+        prompt = f"In one short paragraph, what is the most relevant news or milestone for {crypto_name} in the last 72 hours? Be concise."
+        
+        response = model.generate_content(prompt)
+        
         return response.text
+        
     except Exception as e:
         print(f"Error fetching news from Gemini: {e}")
         return "News summary could not be retrieved at this time."
