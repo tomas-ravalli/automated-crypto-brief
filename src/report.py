@@ -126,7 +126,6 @@ def update_data_and_create_chart(today_str, return_pct):
     
     return chart_path
 
-# This entire function is updated for the new email layout.
 def send_email(current_price, avg_purchase_price, chart_path, news_summary):
     """Sends an email with the price report, news, and embedded chart."""
     if current_price is None or avg_purchase_price is None:
@@ -143,18 +142,21 @@ def send_email(current_price, avg_purchase_price, chart_path, news_summary):
     msg['From'] = SENDER_EMAIL
     msg['To'] = RECIPIENT_EMAIL
 
-    # Define email body components for clarity
+    # Define email body components for plain text
     body_metrics_perf = f"""Return: {return_pct:+.2f}%
-Return Multiplier: x{return_multiplier:.2f}
-Profit/Loss per Unit: €{profit_per_unit:,.2f}"""
-
-    # [NEW] Create a separate HTML version for bolding
-    body_metrics_perf_html = f"""<b>Return:</b> {return_pct:+.2f}%
 Return Multiplier: x{return_multiplier:.2f}
 Profit/Loss per Unit: €{profit_per_unit:,.2f}"""
 
     body_metrics_price = f"""Current Price: €{current_price:,.2f}
 Avg. Purchase Price: €{avg_purchase_price:,.2f}"""
+
+    # Create HTML-specific versions with all labels bolded
+    body_metrics_perf_html = f"""<b>Return:</b> {return_pct:+.2f}%
+<b>Return Multiplier:</b> x{return_multiplier:.2f}
+<b>Profit/Loss per Unit:</b> €{profit_per_unit:,.2f}"""
+
+    body_metrics_price_html = f"""<b>Current Price:</b> €{current_price:,.2f}
+<b>Avg. Purchase Price:</b> €{avg_purchase_price:,.2f}"""
 
     body_news = f"Latest News:\n{news_summary}"
     
@@ -172,11 +174,11 @@ Avg. Purchase Price: €{avg_purchase_price:,.2f}"""
         <html><body>
             <pre style="font-family: sans-serif; margin: 0;">{body_metrics_perf_html}</pre>
             <pre style="font-family: sans-serif; margin: 10px 0;">--</pre>
-            <pre style="font-family: sans-serif; margin: 0;">{body_metrics_price}</pre>
+            <pre style="font-family: sans-serif; margin: 0;">{body_metrics_price_html}</pre>
             <img src="cid:{image_cid}" width="400" style="display:block; max-width:400px; width:100%; height:auto; margin-top:15px; margin-bottom:15px;">
-            <p style="font-family: sans-serif; margin-bottom: 5px;">Latest News:</p>
+            <p style="font-family: sans-serif; margin-bottom: 5px;"><b>Latest News:</b></p>
             <p style="font-family: sans-serif; margin-top: 0;">{news_summary}</p>
-            <pre style="font-family: sans-serif; margin: 0; margin-top:15px;">{body_signature}</pre>
+            <pre style="font-family: monospace; margin: 0; margin-top:15px;">{body_signature}</pre>
         </body></html>"""
         msg.add_alternative(html_body, subtype='html')
         
