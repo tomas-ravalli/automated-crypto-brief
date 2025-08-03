@@ -155,7 +155,6 @@ Avg. Purchase Price: €{avg_purchase_price:,.2f}"""
 <b>Return Multiplier:</b> x{return_multiplier:.2f}
 <b>Profit/Loss per Unit:</b> €{profit_per_unit:,.2f}"""
 
-    # Bolding removed from these labels
     body_metrics_price_html = f"""Current Price: €{current_price:,.2f}
 Avg. Purchase Price: €{avg_purchase_price:,.2f}"""
 
@@ -165,7 +164,7 @@ Avg. Purchase Price: €{avg_purchase_price:,.2f}"""
 🌐 © 2025 t.r."""
 
     # Set plain text content
-    msg.set_content(f"{body_metrics_perf}\n--\n{body_metrics_price}\n\n{body_news}\n\n{body_signature}")
+    msg.set_content(f"{body_metrics_perf}\n--\n{body_metrics_price}\n\n{body_news}\n\n\n{body_signature}")
 
     # Set HTML content if a chart exists
     if chart_path:
@@ -179,7 +178,8 @@ Avg. Purchase Price: €{avg_purchase_price:,.2f}"""
             <img src="cid:{image_cid}" width="400" style="display:block; max-width:400px; width:100%; height:auto; margin-top:15px; margin-bottom:15px;">
             <p style="font-family: sans-serif; margin-bottom: 5px;"><b>Latest News:</b></p>
             <p style="font-family: sans-serif; margin-top: 0;">{news_summary}</p>
-            <pre style="font-family: monospace; margin: 0; margin-top:15px;">{body_signature}</pre>
+            <br>
+            <pre style="font-family: monospace; margin: 0;">{body_signature}</pre>
         </body></html>"""
         msg.add_alternative(html_body, subtype='html')
         
