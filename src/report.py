@@ -52,12 +52,14 @@ def get_news_summary(api_key, crypto_name):
         print("Gemini API key not found. Skipping news summary.")
         return "News summary feature is not configured."
     
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-1.0-pro')
-    prompt = f"In one short paragraph, what is the most relevant news or milestone for {crypto_name} in the last 72 hours? Be concise."
-    
     try:
-        response = model.generate_content(prompt)
+        genai.configure(api_key=api_key)
+        
+        # Use the direct, one-shot generation method
+        response = genai.generate_content(
+            model="gemini-2.5-pro", # Using a current, powerful model
+            contents=f"In one short paragraph, what is the most relevant news or milestone for {crypto_name} in the last 72 hours? Be concise."
+        )
         return response.text
     except Exception as e:
         print(f"Error fetching news from Gemini: {e}")
