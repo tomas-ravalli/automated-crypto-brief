@@ -148,7 +148,7 @@ def send_email(current_price, avg_purchase_price, chart_path, news_summary):
 Return Multiplier: x{return_multiplier:.2f}
 Profit/Loss per Unit: €{profit_per_unit:,.2f}"""
 
-    # Create a separate HTML version for bolding
+    # [NEW] Create a separate HTML version for bolding
     body_metrics_perf_html = f"""<b>Return:</b> {return_pct:+.2f}%
 Return Multiplier: x{return_multiplier:.2f}
 Profit/Loss per Unit: €{profit_per_unit:,.2f}"""
