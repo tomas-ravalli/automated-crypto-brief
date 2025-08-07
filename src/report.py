@@ -58,7 +58,7 @@ def get_news_summary(api_key, crypto_name):
         # Load the model first, then generate content
         model = genai.GenerativeModel('gemini-2.5-pro')
         
-        prompt = f"In one short paragraph, what is the most relevant news or milestone for {crypto_name} in the last 72 hours? Be concise."
+        prompt = f"In one short paragraph, what is the most relevant news or milestone for {crypto_name} in the last 24 hours? Be concise."
         
         response = model.generate_content(prompt)
         
