@@ -143,7 +143,7 @@ def send_email(current_price, avg_purchase_price, chart_path, news_summary):
     today_str = date.today().strftime("%d/%m/%Y")
     
     msg = EmailMessage()
-    msg['Subject'] = f'Daily {CURRENCY_PAIR} Report: {today_str}'
+    msg['Subject'] = f'Daily {CURRENCY_PAIR} Brief: {today_str}'
     msg['From'] = SENDER_EMAIL
     msg['To'] = RECIPIENT_EMAIL
 
