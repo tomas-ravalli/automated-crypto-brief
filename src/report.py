@@ -21,12 +21,12 @@ COINBASE_API_SECRET = os.getenv("COINBASE_API_SECRET")
 SENDER_EMAIL = os.getenv("GMAIL_ADDRESS")
 SENDER_PASSWORD = os.getenv("GMAIL_APP_PASSWORD")
 RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")
-CURRENCY_PAIR = 'ETH-EUR'
+CURRENCY_PAIR = 'XRP-EUR'
 PURCHASE_PRICES_STR = os.getenv("PURCHASE_PRICES")
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 
 def get_xrp_price():
-    """Fetches the current ETH-EUR spot price from Coinbase."""
+    """Fetches the current XRP-EUR spot price from Coinbase."""
     try:
         client = Client(COINBASE_API_KEY, COINBASE_API_SECRET)
         price_data = client.get_spot_price(currency_pair=CURRENCY_PAIR)
