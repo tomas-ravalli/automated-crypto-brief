@@ -1,4 +1,4 @@
-name: Daily ETH-EUR Brief
+name: Daily XRP-EUR Brief
 
 on:
   schedule:
