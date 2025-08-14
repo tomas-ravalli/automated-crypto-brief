@@ -59,17 +59,18 @@ def get_news_summary(api_key, crypto_name):
         # Load the model first, then generate content
         model = genai.GenerativeModel('gemini-2.5-pro')
 
-        # Dynamically set the date range
-        # This makes the prompt accurate for the day it is run.
-        today = date.today()
-        yesterday = today - timedelta(days=1)
-        today_str = today.strftime("%Y-%m-%d")
-        yesterday_str = yesterday.strftime("%Y-%m-%d")
+        # Set the date range to yesterday and the day before yesterday
+        end_date = date.today() - timedelta(days=1)
+        start_date = date.today() - timedelta(days=2)
+
+        # Format dates for the prompt (e.g., "2025-08-12" and "2025-08-13")
+        start_date_str = start_date.strftime("%Y-%m-%d")
+        end_date_str = end_date.strftime("%Y-%m-%d")
 
         # Construct the refined prompt
         prompt = f"""
-        Provide a concise, factual summary of the most significant developments for {crypto_name} that occurred between {yesterday_str} and {today_str}.
-        Focus only on verifiable events, such as protocol updates, official partnership announcements, or major exchange listings.
+        Provide a concise, factual summary of the most significant developments for {crypto_name} that occurred between {start_date_str} and {end_date_str}.
+        Focus only on verifiable events.
         Do not include price speculation or unconfirmed rumors.
         If no significant verifiable events occurred in this period, state 'None'.
         """
