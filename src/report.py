@@ -57,9 +57,22 @@ def get_news_summary(api_key, crypto_name):
         
         # Load the model first, then generate content
         model = genai.GenerativeModel('gemini-2.5-pro')
-        
-        prompt = f"Provide a concise, factual summary of the most significant developments for {crypto_name} over the past 24 hours. Focus only on verifiable events. Do not include price speculation or unconfirmed rumors. If no significant event occurred, state 'None.'"
-        
+
+        # Dynamically set the date range
+        # This makes the prompt accurate for the day it is run.
+        today = date.today()
+        yesterday = today - timedelta(days=1)
+        today_str = today.strftime("%Y-%m-%d")
+        yesterday_str = yesterday.strftime("%Y-%m-%d")
+
+        # Construct the refined prompt
+        prompt = f"""
+        Provide a concise, factual summary of the most significant developments for {crypto_name} that occurred between {yesterday_str} and {today_str}.
+        Focus only on verifiable events, such as protocol updates, official partnership announcements, or major exchange listings.
+        Do not include price speculation or unconfirmed rumors.
+        If no significant verifiable events occurred in this period, state 'None'.
+        """
+                
         response = model.generate_content(prompt)
         
         return response.text
