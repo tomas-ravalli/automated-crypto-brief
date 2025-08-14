@@ -66,11 +66,9 @@ def get_news_summary(api_key, crypto_name):
         # Construct the new, more robust prompt
         prompt = f"""
         Using a real-time web search, summarize the most significant developments for {crypto_name} over the last 24 hours.
-
         For context, the current date is {today_str}.
-
         Focus only on verifiable events. Exclude all price speculation, market analysis, and unconfirmed rumors.
-
+        Do not use bullet points, and be concise.
         If no significant events are found, state 'None'.
         """
                 
