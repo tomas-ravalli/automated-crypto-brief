@@ -65,11 +65,20 @@ def get_news_summary(api_key, crypto_name):
 
         # Construct the new, more robust prompt
         prompt = f"""
-        Using a real-time web search, summarize the most significant developments for {crypto_name} over the last 24 hours.
-        For context, the current date is {today_str}.
-        Focus only on verifiable events. Exclude all price speculation, market analysis, and unconfirmed rumors.
-        Do not use bullet points, and be concise.
-        If no significant events are found, state 'None'.
+        Act as a financial news analyst. Your sole task is to find and summarize factual news about {crypto_name} from the last 24 hours.
+
+        Current Date: {today_str}.
+
+        Instructions:
+        1.  Perform a targeted web search for news articles published in the last 24 hours about {crypto_name}.
+        2.  Prioritize reputable sources like major financial news outlets (e.g., Reuters, Bloomberg), and official company announcements.
+        3.  Identify 1-3 key, verifiable events or developments.
+        4.  Summarize these events into a single, neutral, and concise paragraph.
+        5.  **Crucially, you must exclude:**
+            - All price predictions, speculation, and market analysis.
+            - Social media chatter, forum discussions, and unconfirmed rumors.
+            - Repetitive or non-essential information.
+        6.  If you cannot find any significant, verifiable news in the last 24 hours, you MUST respond with the single word: "None".
         """
                 
         response = model.generate_content(prompt)
