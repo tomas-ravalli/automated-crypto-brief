@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/badge/License-MIT-lightgrey" alt="License">
 </p>
 
-> A Python script that automatically fetches cryptocurrency prices from Coinbase, generates a concise news summary, and sends a comprehensive daily brief via email. Designed to be easily configurable and can be scheduled to run daily using GitHub Actions.
+A Python script that automatically fetches cryptocurrency prices from Coinbase, generates a concise news summary, and sends a comprehensive daily brief via email. Designed to be easily configurable and can be scheduled to run daily using GitHub Actions.
 
 ### Outline
 
