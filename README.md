@@ -1,4 +1,6 @@
-![My Cover](./assets/cb-cover.jpeg)
+<p align="center">
+<img src="./assets/cb-cover.jpeg">
+</p>
 
 # Automated Daily Crypto Brief via Email
 
