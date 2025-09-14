@@ -32,7 +32,7 @@ A Python script that automatically fetches cryptocurrency prices from Coinbase, 
 
 ### Example
 
-<p align="left">
+<p align="center">
   <img src="./assets/cb.gif" alt="Example" width="400">
     <br>
   <em>Fig. 1: An example of the daily XRP brief in an inbox.</em>
