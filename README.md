@@ -168,4 +168,4 @@ automated-crypto-brief/
 
 </br>
 
-<p align="center">🌐 © 2025 t.r.</p>
+<p align="center">🌐 © 2026 t.r.</p>
